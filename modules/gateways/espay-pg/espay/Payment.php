@@ -85,7 +85,7 @@ if ($espaypassword == $passwordServer) {
         $invoiceId = $data['0'];
 
         if (!$invoiceId) {
-            echo '1,Order Id Does Not Exist,,,'; // if order id not exist show plain reponse
+            echo '1,Invoice Id Does Not Exist,,,'; // if order id not exist show plain reponse
         } else {
 
             $innerjoin = "tblclients ON tblclients.id = tblinvoices.userid";
