@@ -11,10 +11,10 @@ add_hook('ClientAreaPage', 1, function($templateVariables)
 {
 	if($templateVariables["filename"] == "viewinvoice" AND $templateVariables["paymentSuccess"] == false)
     {
-		if ((($templateVariables['status'] == "Unpaid" && isset($_SESSION['orderdetails'])) && $_SESSION['orderdetails']['InvoiceID'] == $templateVariables['invoiceid']) && !$_SESSION['orderdetails']['paymentcomplete']) {
-			
+		if ((($templateVariables['status'] == "Unpaid" && isset($_SESSION['orderdetails'])) && !isset($_SESSION['visited']) && $_SESSION['orderdetails']['InvoiceID'] == $templateVariables['invoiceid']) && !$_SESSION['orderdetails']['paymentcomplete']) {
+
 			redir("a=complete", "failpage.php");
-		
+
 		}
 
 		// else if($afterPay === true && $templateVariables['status'] == "Paid"){

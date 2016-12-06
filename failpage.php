@@ -30,6 +30,8 @@ initialiseClientArea(null, null, null);
 $a = $whmcs->get_req_var("a");
 // $orderfrm = new WHMCS_OrderForm();
 
+$_SESSION['visited'] = 'YES';
+
 $templatefile = "/failed.tpl";
 
 $smartyvalues = array_merge($smartyvalues, array("orderid" => $orderid, "ordernumber" => $_SESSION['orderdetails']['OrderNumber'], "invoiceid" => $invoiceid, "ispaid" => $_SESSION['orderdetails']['paymentcomplete'], "amount" => $amount, "paymentmethod" => $paymentmethod, "clientdetails" => getClientsDetails($_SESSION['uid'])));
