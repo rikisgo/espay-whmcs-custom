@@ -36,12 +36,12 @@ $payment_type = array(
 
 // Configuration is automaticly paid or not
 $payment_conf = array(
-    'ATM' => false,
+    'ATM' => true,
     'ONLINE_PAYMENT' => true,
     'EMONEY' => true,
     'CREDIT_CARD' => true,
-    'OUTLET_PAYMENT' => false,
-    'OTHER_NONONLINE' => false,
+    'OUTLET_PAYMENT' => true,
+    'OTHER_NONONLINE' => true,
 );
 
 // Fetch gateway configuration parameters.
