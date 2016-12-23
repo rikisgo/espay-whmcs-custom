@@ -13,12 +13,23 @@
  */
 class Espay_Utils {
 
-    public static function getArrayKey($neddle, $haystack) {
-        foreach ($haystack as $key => $val) {
-            if (in_array($neddle, $val)) {
-                return $key;
+	/**
+	 * Payment type to ensure realtime or non-realtime payment
+	 */
+	public static $pending_payment = array(
+	        'ATM',
+	        'FINPAY'
+	);
+
+    public static function isPending($neddle) {
+        $product = $neddle;
+        foreach (Espay_Utils::$pending_payment as $val) {
+            $pattern = sprintf('/%s/i', $val);
+        	if(preg_match($pattern, $product)){
+            	return true;
             }
         }
+        return false;
     }
 
 }

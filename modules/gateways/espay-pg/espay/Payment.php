@@ -10,40 +10,6 @@ require_once __DIR__ . '/../../../../includes/invoicefunctions.php';
 // Require Espay Library
 require_once __DIR__ . '/../../espay-pg/Espay.php';
 
-/**
- * Payment type to ensure realtime or non-realtime payment
- */
-$payment_type = array(
-    'ATM' => array(
-        'BCAATM', 'BIIATM', 'MASPIONATM', 'MUAMALATATM', 'PERMATAATM',
-    ),
-    'ONLINE_PAYMENT' => array(
-        'BCAKLIKPAY', 'EPAYBRI', 'DANAMONOB', 'DKIIB', 'MANDIRIIB', 'MAYAPADAIB', 'PERMATANETPAY', 'PERMATAPEB'
-    ),
-    'EMONEY' => array(
-        'XLTUNAI', 'MANDIRIECASH', 'NOBUPAY'
-    ),
-    'CREDIT_CARD' => array(
-        'CREDITCARD', 'BNIDBO'
-    ),
-    'OUTLET_PAYMENT' => array(
-        'FINPAY195'
-    ),
-    'OTHER_NONONLINE' => array(
-        'MANDIRISMS'
-    )
-);
-
-// Configuration is automaticly paid or not
-$payment_conf = array(
-    'ATM' => true,
-    'ONLINE_PAYMENT' => true,
-    'EMONEY' => true,
-    'CREDIT_CARD' => true,
-    'OUTLET_PAYMENT' => true,
-    'OTHER_NONONLINE' => true,
-);
-
 // Fetch gateway configuration parameters.
 $gatewayModuleName = "espay";
 $gatewayParams = getGatewayVariables($gatewayModuleName);
@@ -106,17 +72,8 @@ if ($espaypassword == $passwordServer) {
             $reconsile_id = $member_id . " - " . $order_id . date('YmdHis');
             echo '0,Success,' . $reconsile_id . ',' . $order_id . ',' . date('Y-m-d H:i:s') . '';
 
-            // save the order id that already pay
-            // $this->model_checkout_order->update($order_id, $this->config->get('sgopayment_order_status_id'), $comment, true);
-            $espayPaymentType = Espay_Utils::getArrayKey($product, $payment_type);
-            $isProcessPaidInv = $payment_conf[$espayPaymentType];
-
-            if ($isProcessPaidInv) {
-                checkCbTransID($payment_ref);
-                addInvoicePayment(
-                        $order_id, $payment_ref, $paidAmount, $paymentFee, $gatewayModuleName
-                );
-            }
+            checkCbTransID($payment_ref);
+            addInvoicePayment($order_id, $payment_ref, $paidAmount, $paymentFee, $gatewayModuleName);
         }
     } else {
         echo '1,Invalid Signature Key,,,';

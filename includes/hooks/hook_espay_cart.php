@@ -9,11 +9,22 @@ if (!defined("WHMCS"))
 
 add_hook('ClientAreaPage', 1, function($templateVariables)
 {
+
 	if($templateVariables["filename"] == "viewinvoice" AND $templateVariables["paymentSuccess"] == false)
     {
-		if ((($templateVariables['status'] == "Unpaid" && isset($_SESSION['orderdetails'])) && !isset($_SESSION['visited']) && $_SESSION['orderdetails']['InvoiceID'] == $templateVariables['invoiceid']) && !$_SESSION['orderdetails']['paymentcomplete']) {
+		if ((($templateVariables['status'] == "Unpaid" && isset($_SESSION['orderdetails'])) && $_SESSION['orderdetails']['InvoiceID'] == $templateVariables['invoiceid']) && !$_SESSION['orderdetails']['paymentcomplete']) {
 
-			redir("a=complete", "failpage.php");
+			$value = htmlspecialchars_decode($_SERVER['REQUEST_URI']);
+			$output = parse_url($value);
+			$query = $output['query'];
+			parse_str($query, $arrurl);
+			$product_code = $arrurl['espay'];
+
+			if(Espay_Utils::isPending($product_code)){
+				redir("a=complete", "pendingpage.php");
+			}else{
+				redir("a=complete", "failpage.php");
+			}
 
 		}
 
