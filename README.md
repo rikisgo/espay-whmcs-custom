@@ -10,4 +10,4 @@ INSTALLATION GUIDE:
 1. ADD THIS TO YOUR LANG Files (THE VALUE IS UP TO YOUR NEED)
 	* 	$_LANG['invoicepaymentpendingconfirmation'] = "Thank you! your invoice will be confirmed soon after you finished your pending payment.";
 
-2. COPY ALL OF THIS TO YOUR FOLDER (except lang folder, it is optional)
+2. COPY ALL OF THIS TO YOUR WHMCS APPLICATION FOLDER
