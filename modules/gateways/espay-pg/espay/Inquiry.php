@@ -55,7 +55,7 @@ if ($espaypassword == $passwordServer) {
 
             // show response
             // see TSD for more detail
-            echo '0;Success;' . $order_id . ';' . $formattedTotal . ';' . $currency ["prefix"] . '; Pembayaran Invoice ' . $order_id . ' oleh ' . $data2 ["lastname"] . ' ' . $data2 ["firstname"] . ';' . date('Y/m/d H:i:s') . '';
+            echo '0;Success;' . $order_id . ';' . $formattedTotal . ';' . $currency ["prefix"] . '; Pembayaran Invoice ' . $order_id . ' oleh ' . $data2 ["firstname"] . ' ' . $data2 ["lastname"] . ';' . date('Y/m/d H:i:s') . '';
         }
     } else {
         echo '1;Invalid Signature Key;;;;;';
