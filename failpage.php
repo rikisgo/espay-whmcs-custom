@@ -34,7 +34,7 @@ $templatefile = "/failed.tpl";
 
 $transaction_detail = $_SESSION['orderdetails'];
 
-$smartyvalues = array_merge($smartyvalues, array("orderid" => $orderid, "ordernumber" => $transaction_detail['orderdetails']['OrderNumber'], "invoiceid" => $invoiceid, "ispaid" => $transaction_detail['orderdetails']['paymentcomplete'], "amount" => $amount, "paymentmethod" => $paymentmethod, "clientdetails" => getClientsDetails($_SESSION['uid'])));
+$smartyvalues = array_merge($smartyvalues, array("orderid" => $orderid, "ordernumber" => $transaction_detail['OrderNumber'], "invoiceid" => $invoiceid, "ispaid" => $transaction_detail['paymentcomplete'], "amount" => $amount, "paymentmethod" => $paymentmethod, "clientdetails" => getClientsDetails($_SESSION['uid'])));
 
 // $smarty->assign("message", $_LANG['forwardingtogateway']);
 // $smarty->assign("code", $paymentbutton);

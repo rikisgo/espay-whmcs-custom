@@ -43,31 +43,21 @@ if ($espaypassword == $passwordServer) {
 
     if ($signatureKeyRest == $signaturePostman) {
 
-        // validate order id
-        //$invoiceId = checkCbInvoiceID($order_id, $gatewayParams['name']);
-
-        $result = select_query("tblinvoices", "COUNT(id)", array("id" => $order_id));
-        $data = mysql_fetch_array($result);
-        $invoiceId = $data['0'];
+        /**
+         * Validate Callback Invoice ID.
+         *
+         * Checks invoice ID is a valid invoice number. Note it will count an
+         * invoice in any status as valid.
+         *
+         * Performs a die upon encountering an invalid Invoice ID.
+         *
+         * Returns a normalised invoice ID.
+         */
+        $invoiceId = checkCbInvoiceID($order_id, $gatewayParams['name']);
 
         if (!$invoiceId) {
             echo '1,Invoice Id Does Not Exist,,,'; // if order id not exist show plain reponse
         } else {
-
-            $innerjoin = "tblclients ON tblclients.id = tblinvoices.userid";
-            $field = "tblinvoices.*, tblclients.firstname, tblclients.lastname";
-            $where = "tblinvoices.id='" . $order_id . "'";
-            $result2 = select_query("tblinvoices", $field, $where, "", "", "", $innerjoin);
-            $data2 = mysql_fetch_array($result2);
-
-            $total = $data2['total'];
-            $currency = getCurrency($data2['userid']);
-
-            $comment = "";
-            $comment .= "Transfer using Espay Payment Gateways" . "\n\n";
-            $comment .= "Transfer from" . " " . $credit_to . "\n\n";
-            $comment .= "Transfer to" . " " . $debit_from . "\n\n";
-            $comment .= "Payments mades by." . " " . $product . "\n\n";
 
             $reconsile_id = $member_id . " - " . $order_id . date('YmdHis');
             echo '0,Success,' . $reconsile_id . ',' . $order_id . ',' . date('Y-m-d H:i:s') . '';
