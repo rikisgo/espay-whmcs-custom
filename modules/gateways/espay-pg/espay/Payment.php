@@ -59,11 +59,11 @@ if ($espaypassword == $passwordServer) {
             echo '1,Invoice Id Does Not Exist,,,'; // if order id not exist show plain reponse
         } else {
 
-            $reconsile_id = $member_id . " - " . $order_id . date('YmdHis');
-            echo '0,Success,' . $reconsile_id . ',' . $order_id . ',' . date('Y-m-d H:i:s') . '';
-
             checkCbTransID($payment_ref);
             addInvoicePayment($order_id, $payment_ref, $paidAmount, $paymentFee, $gatewayModuleName);
+
+            $reconsile_id = $member_id . " - " . $order_id . date('YmdHis');
+            echo '0,Success,' . $reconsile_id . ',' . $order_id . ',' . date('Y-m-d H:i:s') . '';
         }
     } else {
         echo '1,Invalid Signature Key,,,';
